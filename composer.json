@@ -1,0 +1,33 @@
+{
+    "name": "ellipticmarketing/larasapien",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Luis Medina",
+            "email": "luis.medina@ellipticmarketing.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0|^8.0",
+        "laravel/framework": ">=5.5.0 <8.x-dev"
+    },
+    "require-dev": {
+        "orchestra/testbench": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "EllipticMarketing\\Larasapien\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EllipticMarketing\\Larasapien\\LarasapienServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": true
+    }
+}
