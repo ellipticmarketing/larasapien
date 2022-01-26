@@ -23,7 +23,7 @@ You may disable any of these checks using your Larasapien configuration file.
 1. Install this package via composer using the following command:
 
 ```bash
-composer require larasapien/larasapien
+composer require ellipticmarketing/larasapien
 ```
 
 2. Add your Larasapien project token to your .env file:
