@@ -65,28 +65,9 @@ class GitChecker implements CheckerContract
         while (-1 !== fseek($file, $position, SEEK_END)) {
             $char = fgetc($file);
 
-            if ("\n" == $char || "\r\n" == $char) {
-                preg_match(
-                    '/^(?:[^\s]+)\ (?<hash>[^\s]+)\ (?:.+)\ (?<time>\d+\ [+|-]\d+)\t(?<message>.+)$/m',
-                    $line,
-                    $results
-                );
-
-                if (! empty($results)) {
-                    $message_segments = Str::of($results['message'])->split('/:+/', 2);
-
-                    if (Str::of($message_segments->first())->contains('commit')) {
-                        $date = Carbon::createFromTimestamp(
-                            ...Str::of($results['time'])->split('/\s+/')
-                        );
-
-                        return [
-                            'hash' => $results['hash'],
-                            'date' => $date->toIso8601String(),
-                            'message' => trim($message_segments->last())
-                        ];
-                    }
-                }
+            if (PHP_EOL == $char || feof($file)) {
+                $commit = $this->parseCommitLine($line);
+                if ($commit) return $commit;
 
                 $line = '';
             } else {
@@ -94,6 +75,42 @@ class GitChecker implements CheckerContract
             }
 
             $position--;
+        }
+
+        // Check line content if exit from while loop prematurely
+        $commit = $this->parseCommitLine($line);
+        if ($commit) return $commit;
+
+        return null;
+    }
+
+    /**
+     * Parse commit line from refs/head.
+     *
+     * @return array|null
+     */
+    protected function parseCommitLine(string $line)
+    {
+        preg_match(
+            '/^(?:[^\s]+)\ (?<hash>[^\s]+)\ (?:.+)\ (?<time>\d+\ [+|-]\d+)\t(?<message>.+)$/m',
+            $line,
+            $results
+        );
+
+        if (! empty($results)) {
+            $message_segments = Str::of($results['message'])->split('/:+/', 2);
+
+            if (Str::of($message_segments->first())->contains('commit')) {
+                $date = Carbon::createFromTimestamp(
+                    ...Str::of($results['time'])->split('/\s+/')
+                );
+
+                return [
+                    'hash' => $results['hash'],
+                    'date' => $date->toIso8601String(),
+                    'message' => trim($message_segments->last())
+                ];
+            }
         }
 
         return null;
