@@ -27,6 +27,7 @@
             ]
         }
     },
+    "minimum-stability": "dev",
     "config": {
         "allow-plugins": true
     }
