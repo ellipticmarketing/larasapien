@@ -15,7 +15,7 @@ class CheckBearerToken
      */
     public function handle($request, Closure $next)
     {
-        if ($request->bearerToken() != config('larasapien.token')) {
+        if (is_null(config('larasapien.token')) || $request->bearerToken() != config('larasapien.token')) {
             abort(403);
         }
 

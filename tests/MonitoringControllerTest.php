@@ -38,4 +38,13 @@ class MonitoringControllerTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    public function test_refuse_request_if_no_token_set()
+    {
+        config(['larasapien.token' => null]);
+
+        $response = $this->post(route('larasapien.index'));
+
+        $response->assertStatus(403);
+    }
 }
