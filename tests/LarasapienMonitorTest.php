@@ -17,7 +17,7 @@ class LarasapienMonitorTest extends TestCase
         $monitor = App::make(MonitorContract::class);
         $status = $monitor->check();
 
-        $this->assertEquals('1.0.0', $status['versions']['larasapien']);
+        $this->assertEquals('1.0.1', $status['versions']['larasapien']);
         $this->assertTrue(is_float($status['cpu_load']));
     }
 }

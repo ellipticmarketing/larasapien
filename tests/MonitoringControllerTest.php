@@ -20,7 +20,7 @@ class MonitoringControllerTest extends TestCase
         $response
             ->assertStatus(200);
 
-        $this->assertEquals($response->decodeResponseJson()['versions']['larasapien'], '1.0.0');
+        $this->assertEquals($response->decodeResponseJson()['versions']['larasapien'], '1.0.1');
     }
 
     public function test_refuse_request_if_bearer_is_not_present()
