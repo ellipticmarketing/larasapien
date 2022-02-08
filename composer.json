@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": "^7.0|^8.0",
-        "laravel/framework": ">=5.5.0 <=9.x-dev"
+        "laravel/framework": ">=5.5.0 <9.x-dev"
     },
     "require-dev": {
         "orchestra/testbench": "*"
@@ -27,7 +27,7 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "config": {
         "allow-plugins": true
     }
