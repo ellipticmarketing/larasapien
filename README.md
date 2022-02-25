@@ -34,7 +34,7 @@ LARASAPIEN_TOKEN={{your-token}}
 
 You can find your project token in the Larasapien dashboard.
 
-4. Optional: Publish the configuration file:
+3. Optional: Publish the configuration file:
 
 ```bash
 php artisan vendor:publish --tag=larasapien-config
