@@ -17,9 +17,13 @@ class GitChecker implements CheckerContract
 
     public function __construct($repository_path = null)
     {
-        if (is_null($repository_path)) {
-            $this->repository_path = base_path('.git');
-        }
+        $this->repository_path =
+            is_null($repository_path) ? base_path('.git') : $repository_path;
+    }
+
+    public function getRepositoryPath(): string
+    {
+        return $this->repository_path;
     }
 
     /**
@@ -29,7 +33,7 @@ class GitChecker implements CheckerContract
      */
     public function run(): array
     {
-        if (! file_exists($this->repository_path)) {
+        if (! file_exists($this->getRepositoryPath())) {
             return [ 'git' => false ];
         }
 
@@ -54,11 +58,11 @@ class GitChecker implements CheckerContract
 
     protected function lastCommit($log_path)
     {
-        if (! file_exists("{$this->repository_path}/logs/refs/heads/$log_path")) {
+        if (! file_exists("{$this->getRepositoryPath()}/logs/refs/heads/$log_path")) {
             return null;
         }
 
-        $file = fopen("{$this->repository_path}/logs/refs/heads/$log_path", 'r');
+        $file = fopen("{$this->getRepositoryPath()}/logs/refs/heads/$log_path", 'r');
         $position = -1;
         $line = '';
 
@@ -123,6 +127,6 @@ class GitChecker implements CheckerContract
      */
     protected function getFileContents($path): string
     {
-        return file_get_contents("{$this->repository_path}/$path");
+        return file_get_contents("{$this->getRepositoryPath()}/$path");
     }
 }
