@@ -50,19 +50,21 @@ class GitChecker implements CheckerContract
 
     protected function currentBranch(): string
     {
-        $branch_path = Str::of($this->getFileContents('HEAD'))
-                          ->split('/[\s]+/')->last(function ($value) { return ! empty($value); });
+        $branch_path = collect(preg_split('/[\s]+/', $this->getFileContents('HEAD')))
+            ->last(function ($value) { return ! empty($value); });
 
-        return Str::of($branch_path)->replace('refs/heads/', '');
+        return str_replace('refs/heads/', '', $branch_path);
     }
 
     protected function lastCommit($log_path)
     {
-        if (! file_exists("{$this->getRepositoryPath()}/logs/refs/heads/$log_path")) {
+        $abs_log_path = "{$this->getRepositoryPath()}/logs/refs/heads/$log_path";
+
+        if (! file_exists($abs_log_path)) {
             return null;
         }
 
-        $file = fopen("{$this->getRepositoryPath()}/logs/refs/heads/$log_path", 'r');
+        $file = fopen($abs_log_path, 'r');
         $position = -1;
         $line = '';
 
@@ -102,10 +104,10 @@ class GitChecker implements CheckerContract
         );
 
         if (! empty($results)) {
-            $message_segments = Str::of($results['message'])->split('/:+/', 2);
+            $message_segments = collect(preg_split('/:+/', $results['message'], 2));
 
             $date = Carbon::createFromTimestamp(
-                ...Str::of($results['time'])->split('/\s+/')
+                ...preg_split('/\s+/', $results['time'])
             );
 
             return [
