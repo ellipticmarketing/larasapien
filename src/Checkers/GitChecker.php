@@ -104,17 +104,15 @@ class GitChecker implements CheckerContract
         if (! empty($results)) {
             $message_segments = Str::of($results['message'])->split('/:+/', 2);
 
-            if (Str::of($message_segments->first())->contains('commit')) {
-                $date = Carbon::createFromTimestamp(
-                    ...Str::of($results['time'])->split('/\s+/')
-                );
+            $date = Carbon::createFromTimestamp(
+                ...Str::of($results['time'])->split('/\s+/')
+            );
 
-                return [
-                    'hash' => $results['hash'],
-                    'date' => $date->toIso8601String(),
-                    'message' => trim($message_segments->last())
-                ];
-            }
+            return [
+                'hash' => $results['hash'],
+                'date' => $date->toIso8601String(),
+                'message' => trim($message_segments->last())
+            ];
         }
 
         return null;
