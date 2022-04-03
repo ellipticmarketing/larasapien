@@ -14,7 +14,7 @@ class LarasapienMonitor implements MonitorContract
      *
      * @var string
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.2';
 
     /**
      * All registered checkers.
