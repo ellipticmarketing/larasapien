@@ -2,7 +2,7 @@
 
 namespace EllipticMarketing\Larasapien\Checkers;
 
-use Laravel\Horizon\Contracts\MasterSupervisorRepository\MasterSupervisorRepository;
+use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use EllipticMarketing\Larasapien\Contracts\CheckerContract;
 use Exception;
 
