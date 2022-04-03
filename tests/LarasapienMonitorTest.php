@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use EllipticMarketing\Larasapien\LarasapienMonitor;
 use Illuminate\Support\Facades\App;
 use EllipticMarketing\Larasapien\Contracts\MonitorContract;
 
@@ -14,10 +15,12 @@ class LarasapienMonitorTest extends TestCase
      */
     public function test_check_method()
     {
+        $version = LarasapienMonitor::VERSION;
+
         $monitor = App::make(MonitorContract::class);
         $status = $monitor->check();
 
-        $this->assertEquals('1.1.2', $status['versions']['larasapien']);
+        $this->assertEquals($version, $status['versions']['larasapien']);
         $this->assertTrue(is_float($status['cpu_load']));
     }
 }
