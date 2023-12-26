@@ -113,8 +113,7 @@ class GitChecker implements CheckerContract
             return [
                 'hash' => $results['hash'],
                 'date' => $date->toIso8601String(),
-                'message' => trim($message_segments->last())
-            ];
+                ];
         }
 
         return null;
@@ -123,6 +122,7 @@ class GitChecker implements CheckerContract
     /**
      * Returns file content using as prefix the repository path.
      *
+     * @param $path
      * @return string
      */
     protected function getFileContents($path): string

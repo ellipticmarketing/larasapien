@@ -18,7 +18,7 @@ class GitCheckerTest extends TestCase
         $output = $checker->run()['git'];
 
         $this->assertTrue($output['enabled']);
-        $this->assertCount(3, $output['last_commit']);
+        $this->assertCount(2, $output['last_commit']);
     }
 
     /**
