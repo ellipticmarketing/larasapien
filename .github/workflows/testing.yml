@@ -14,10 +14,16 @@ jobs:
 
     strategy:
       matrix:
-        laravel: [10.*, 9.*, 8.*, 7.*, 6.*, 5.7.*, 5.6.*, 5.5.*]
+        laravel: [12.*, 11.*, 10.*, 9.*, 8.*]
         dependency-version: [prefer-stable]
         os: [ubuntu-latest]
         include:
+          - laravel: 12.*
+            testbench: 8.*
+            php: 8.3
+          - laravel: 11.*
+            testbench: 8.*
+            php: 8.2
           - laravel: 10.*
             testbench: 8.*
             php: 8.1
@@ -27,21 +33,6 @@ jobs:
           - laravel: 8.*
             testbench: 6.*
             php: 8.0
-          - laravel: 7.*
-            testbench: 5.*
-            php: 7.2.5
-          - laravel: 6.*
-            testbench: 4.*
-            php: 7.2.5
-          - laravel: 5.7.*
-            testbench: 3.7.*
-            php: 7.1.3
-          - laravel: 5.6.*
-            testbench: 3.6.*
-            php: 7.1.3
-          - laravel: 5.5.*
-            testbench: 3.5.*
-            php: 7.0
       fail-fast: false
 
     steps:
