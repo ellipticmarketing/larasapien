@@ -2,14 +2,14 @@
     "name": "ellipticmarketing/larasapien",
     "type": "library",
     "authors": [
-        {
-            "name": "Luis Medina",
-            "email": "luis.medina@ellipticmarketing.com"
+         {
+            "name": "Rolando Rojas",
+            "email": "rolando.rojas@ellipticmarketing.com"
         }
     ],
     "require": {
         "php": "^7.0|^8.0",
-        "laravel/framework": ">=5.5.0 <=10.x-dev"
+        "laravel/framework": ">=5.5.0 <=12.x-dev"
     },
     "require-dev": {
         "orchestra/testbench": "*"
